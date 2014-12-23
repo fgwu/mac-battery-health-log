@@ -1,0 +1,36 @@
+This project is used to log the battary health information each time the 
+MacBook is put to sleep. Besides, to avoid too much logs perday, the min 
+interval is set to be 12 hours between two consecutive log lines.
+
+Installation:
+----------------------------------------------
+1) Create folder .batt in the home directory
+
+2) Clone batt.sh and rc.sleep to this directory. 
+Add excute permission to batt.sh by: chmod +x batt.sh
+
+3) Install sleepwatcher. http://www.bernhard-baehr.de/
+curl --remote-name "http://www.bernhard-baehr.de/sleepwatcher_2.2.tgz" 
+tar xvzf sleepwatcher_2.2.tgz
+cd sleepwatcher_2.2
+
+sudo mkdir -p /usr/local/sbin /usr/local/share/man/man8 
+
+sudo cp sleepwatcher /usr/local/sbin 
+sudo cp sleepwatcher.8 /usr/local/share/man/man8 
+
+sudo cp config/de.bernhard-baehr.sleepwatcher-20compatibility.plist \
+     /Library/LaunchDaemons/de.bernhard-baehr.sleepwatcher.plist 
+
+4) copy the rc.sleep to the global etc library
+cd ~/.batt
+sudo cp rc.sleep /etc/rc.sleep
+sudo chmod +x rc.sleep
+
+5) Lauch daemon that executes rc.sleep each time MacBook sleeps. 
+sudo launchctl load -w -F /Library/LaunchDaemons/de.bernhard-baehr.sleepwatcher.plist
+
+6) remember to excute step 5) each time MacBook restarts.
+
+7) If you want to see the log, type:
+cat ~/.batt/batt.log
