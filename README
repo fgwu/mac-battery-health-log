@@ -28,7 +28,8 @@ sudo cp rc.sleep /etc/rc.sleep
 sudo chmod +x rc.sleep
 
 5) Lauch daemon that executes rc.sleep each time MacBook sleeps. 
-sudo launchctl load -w -F /Library/LaunchDaemons/de.bernhard-baehr.sleepwatcher.plist
+sudo launchctl load -w -F \
+     /Library/LaunchDaemons/de.bernhard-baehr.sleepwatcher.plist
 
 6) remember to excute step 5) each time MacBook restarts.
 
